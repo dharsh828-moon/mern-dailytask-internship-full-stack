@@ -1,0 +1,9 @@
+import React from 'react'
+import { Menu, Search, Bell, Plus } from 'lucide-react'
+import { Button } from './ui'
+export default function Navbar({ title, onMenu, onAdd, search, setSearch }) {
+ return <header className="sticky top-0 z-20 flex h-[76px] items-center justify-between border-b border-line bg-[#f8f9fc]/90 px-4 backdrop-blur md:px-8">
+  <div className="flex min-w-0 items-center gap-3"><button onClick={onMenu} className="rounded-lg p-2 text-slate-500 hover:bg-white lg:hidden"><Menu size={20}/></button><div><p className="text-[11px] font-semibold uppercase tracking-[.13em] text-slate-400">Your workspace</p><h1 className="font-display text-lg font-extrabold text-ink md:text-xl">{title}</h1></div></div>
+  <div className="flex items-center gap-2 md:gap-3"><div className="relative hidden sm:block"><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16}/><input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search anything..." className="h-10 w-48 rounded-xl border border-line bg-white pl-9 pr-3 text-sm outline-none focus:border-brand lg:w-60"/></div><button className="relative grid h-10 w-10 place-items-center rounded-xl border border-line bg-white text-slate-500 hover:text-brand"><Bell size={17}/><span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-rose-500"/></button><Button onClick={onAdd} size="md" className="hidden sm:inline-flex"><Plus size={16}/> Add new</Button><Button onClick={onAdd} size="icon" className="sm:hidden"><Plus size={17}/></Button><div className="ml-1 grid h-9 w-9 place-items-center rounded-full bg-[#e8eaff] text-xs font-bold text-brand">DR</div></div>
+ </header>
+}

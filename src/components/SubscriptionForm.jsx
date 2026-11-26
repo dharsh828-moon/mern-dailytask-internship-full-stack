@@ -1,0 +1,10 @@
+import React, { useEffect, useState } from 'react'
+import { Field, inputClass, Button } from './ui'
+const empty={name:'',category:'Entertainment',amount:'',cycle:'Monthly',nextDate:'2026-12-01',plan:'Standard',color:'#5967d8'}
+export default function SubscriptionForm({ initial, onSave, onCancel }) {
+ const [form,setForm]=useState(initial||empty)
+ useEffect(()=>setForm(initial||empty),[initial])
+ const update=(k,v)=>setForm(p=>({...p,[k]:v}))
+ const submit=e=>{e.preventDefault();if(!form.name.trim()||Number(form.amount)<=0)return;onSave({...form,amount:Number(form.amount),initials:form.name[0].toUpperCase()})}
+ return <form onSubmit={submit} className="grid gap-4"><Field label="Service name"><input className={inputClass} placeholder="e.g. Netflix" value={form.name} onChange={e=>update('name',e.target.value)} required/></Field><div className="grid grid-cols-2 gap-3"><Field label="Category"><select className={inputClass} value={form.category} onChange={e=>update('category',e.target.value)}>{['Entertainment','Music','Productivity','Utilities','Education','Other'].map(x=><option key={x}>{x}</option>)}</select></Field><Field label="Plan name"><input className={inputClass} value={form.plan} onChange={e=>update('plan',e.target.value)} placeholder="Standard"/></Field></div><div className="grid grid-cols-2 gap-3"><Field label="Amount (₹)"><input type="number" min="1" className={inputClass} value={form.amount} onChange={e=>update('amount',e.target.value)} placeholder="649" required/></Field><Field label="Billing cycle"><select className={inputClass} value={form.cycle} onChange={e=>update('cycle',e.target.value)}><option>Monthly</option><option>Yearly</option></select></Field></div><Field label="Next renewal date"><input type="date" className={inputClass} value={form.nextDate} onChange={e=>update('nextDate',e.target.value)} required/></Field><div className="flex justify-end gap-2 pt-2"><Button type="button" variant="secondary" onClick={onCancel}>Cancel</Button><Button type="submit">Save subscription</Button></div></form>
+}
